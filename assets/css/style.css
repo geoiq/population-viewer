@@ -57,7 +57,8 @@ ul,li{list-style: none outside none;}
 div, section, header, footer{position: relative;}
 /* eo reset */
 html{
-	background: url(img/bg_body.gif) 0 0;
+/*  background: url(img/bg_body.gif) 0 0;*/
+    background-color: #FFFFFF;
 	height: 100%;
 }
 body{
@@ -143,7 +144,6 @@ strong, h1, h2, h3, h4, h5, h6, .txtBold{font-family:'CartoGothicStdBold', 'Myri
 }
 .dropMenu{
 	color: #000;
-	display: none;
 	list-style: none outisde none;
 	margin: 0;
 	min-width: 142px;
@@ -245,6 +245,8 @@ strong, h1, h2, h3, h4, h5, h6, .txtBold{font-family:'CartoGothicStdBold', 'Myri
 }
 .openTweets{
 	display: block;	
+	height: 680px;
+	overflow-y: auto;
 }
 .tweetList{
 	background: url('img/bg_tweets.png') left bottom;
@@ -255,6 +257,7 @@ strong, h1, h2, h3, h4, h5, h6, .txtBold{font-family:'CartoGothicStdBold', 'Myri
 	position: absolute;
 	right: 0;
 	width: 240px;
+	cursor: hand;
 }
 .tweetLi{
 	border-bottom: 1px solid #d5d8da;
@@ -269,16 +272,18 @@ strong, h1, h2, h3, h4, h5, h6, .txtBold{font-family:'CartoGothicStdBold', 'Myri
 	height: 22px;
 	margin: 0 10px 0 0;
 	width: 22px;
+	display:none;
 }
 .tweetText{
-	float: right;
-	width: 168px;
-}
+    font-size: 10px;
+/*  float: right;
+    width: 168px;
+*/}
 .mapBG{
-	background: url('img/bg_world_map.png')	no-repeat 0 0;
-	-moz-background-size: cover;
-	background-size: cover;
-	clear: both;
+/*  background: url('img/bg_world_map.png') no-repeat 0 0;
+    -moz-background-size: cover;
+    background-size: cover;
+*/	clear: both;
 	height: 100%;
 	position: fixed;
 	width: 100%;
