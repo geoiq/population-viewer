@@ -1,79 +1,124 @@
-<html>
-<title>Dashboard</title>
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="no-js ie6 ieHTML" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="no-js ie7 ieHTML" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="no-js ie8 ieHTML" lang="en"> <![endif]-->
+<!--[if IE 9 ]>    <html class="no-js ie9 ieHTML" lang="en"> <![endif]-->
+<!--[if !(IE)]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title></title>
+<meta name="description" content="">
+<meta name="author" content="">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="assets/js/modernizr-1.7.min.js"></script>
+<!--[if lt IE 9]>
+<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<script>
+	//webfont flicker issue resolution from Paul Irish
+	(function(){
+	  // if firefox 3.5+, hide content till load (or 1.5 seconds) to prevent FOUT
+	  var d = document, e = d.documentElement, s = d.createElement('style');
+	  if (e.style.MozTransform === ''){ // gecko 1.9.1 inference
+		s.textContent = 'body{visibility:hidden}';
+		var r = document.getElementsByTagName('script')[0];
+		r.parentNode.insertBefore(s, r);
+		function f(){ s.parentNode && s.parentNode.removeChild(s); }
+		addEventListener('load',f,false);
+		setTimeout(f,1500); 
+	  }
+	})();
+</script>
 <style>#dashboard_map {width: 100%; height: 700px;}</style>
-  <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="http://geoiq.akgroup/javascripts/f1.api.js"></script>
 <script type="text/javascript">
-dashboard_map = new F1.Maker.Map({map_id: "49", dom_id: "dashboard_map", uiLayers: false});
 function highlightFeature(layer, feature) {
   dashboard_map.clearHighlights(layer);
   dashboard_map.addHighlight(layer, "$["+sidebar_styles[layer].name+"] == '" + feature + "'")
   return false;
 }  
-$(function(){
-  var current_layer = 5;
-  sidebar_styles = [{},{},{name: "sstatus"},{name: "sctrycode"}, {name: "sname"}, {name: "sname"}]
+var current_layer = 5;
+sidebar_styles = [{},{},{name: "sstatus"},{name: "sctrycode"}, {name: "sname"}, {name: "sname"}]
 
-  // Tabs
+
+function loadedMap() {
   $('.tab').click(function(){
-      dashboard_map.showControl("Legend",true,"closed")
-      jq("#" + current_layer).removeClass("selected")
-      $("#" + current_layer + "_data").hide()
-      dashboard_map.showLayer(current_layer, false);
-      current_layer = jq(this).attr("id");
-      jq(this).addClass("selected")
-      dashboard_map.showLayer(current_layer, true);
-      $("#" + current_layer + "_data").show()
-      dashboard_map.showControl("Legend",true,"open")
-      html = "<ul>"
-      $.each(dashboard_map.getFeatures(current_layer), function(i,feature) {
-        html += "<li><a href='#' onclick='highlightFeature("+current_layer+",\""+feature.attributes[sidebar_styles[current_layer].name]+"\"); return false'>" + feature.attributes[sidebar_styles[current_layer].name] + "</a></li>"
-      })
-      html += "</ul>"
-      $("#sidebar").html(html)
-      return false;
-    })
-    
-});
-</script>
-<style type="text/css">
-/*demo page css*/
-#tabs ul {list-style: none outside none; padding-bottom: 20px;}
-#tabs ul li {float: left; margin-left: 8px ; }
-a { text-decoration: none; }
-#tabs ul li a {border-left: 1px solid #444;border-top: 1px solid #444;border-right: 1px solid #444; padding: 3px; background-color: #BBB; }
-#tabs ul li a:hover { background-color: #FFF; }
-#tabs ul li a.selected { background-color: #FFF; }
-#tabs h3 { margin-bottom: 8px ;}
-#sidebar li {border: 1px solid #444;}
-#sidebar li, #sidebar a { padding: 8px 0;  }
-#sidebar a:hover { color: red; }
-</style>
-<body>
-  <h1>Data Views</h1>
-  <div id="tabs">
-    <ul>
-      <li><a class="tab selected" href="#5" id="5">Approvals</a></li>
-      <li><a class="tab" href="#4" id="4">Rejections</a></li>
-      <li><a class="tab" href="#3" id="3">Demographics</a></li>
-      <li><a class="tab" href="#2" id="2">Phases</a></li>
-    </ul>
-  </div>
-    <div style="float:left; width: 80%">
-      <div class="geocommons_map" id="dashboard_map"></div><br/>
-    </div>
-    
-    <div style="float: left; width: 18%; margin-left:12px">
-      <div id="5_data" style="display:none"><h2>Approvals</h2></div>
-      <div id="4_data" style="display:none"><h2>Rejections</h2></div>
-      <div id="3_data" style="display:none"><h2>Demographics</h2>
-        <p>Sunni, Shiite</p>
-      </div>
-      <div id="2_data" style="display:none"><h2>Phases</h2></div>
-      <div id="sidebar"></div>
-    </div>
-  </div>
-</div>
+    selectLayer(jq(this).attr("id"));
+    return false;
+  })
 
+//  selectLayer(current_layer); // load the default layer
+  console.log("loadedMap done!!!")
+}
+function selectLayer(selected_layer) {
+
+  dashboard_map.showControl("Legend",true,"closed")
+  jq("#" + current_layer).removeClass("selected")
+  $("#" + current_layer + "_data").hide()
+  dashboard_map.showLayer(current_layer, false);
+  current_layer = selected_layer;
+  jq(this).addClass("selected")
+  dashboard_map.showLayer(current_layer, true);
+  $("#" + current_layer + "_data").show()
+  dashboard_map.showControl("Legend",true,"open")
+  html = ""
+  $.each(dashboard_map.getFeatures(current_layer, 100), function(i,feature) {
+    html += '<li class="tweetLi clearfix" onclick="highlightFeature('+current_layer+',\''+feature.attributes[sidebar_styles[current_layer].name]+'\'); return false" ><a href="#" class="tweetIcon"><img style="display:none" src="assets/img/tw_icon_x.png" alt="" width="22" height="22" /></a><span class="tweetText">' +feature.attributes[sidebar_styles[current_layer].name]+ '</span></li>';
+  })
+  $("#dropTweets").html(html) 
+  return false;  
+}
+dashboard_map = new F1.Maker.Map({map_id: "49", dom_id: "dashboard_map", uiLayers: false, onload: function() {loadedMap() }});
+
+</script>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header id="hdrSite" class="hdrSite clearfix">
+        <a href="/" rel="nofollow" class="hdrLogo">geoIQ</a>
+        <a href="#" class="hdrPep">Dashboard</a>
+        <nav class="hdrNav clearfix" role="navigation">
+            <!-- <a href="#" class="navData">upload data</a>
+            <a href="#" class="navMap">make a map</a>
+            <a href="#" class="navUser">ianbrinksman</a> -->
+        </nav>
+        <nav class="subNav clearfix clear">
+            <ul class="leftSub txtBold" id="leftSub">
+                <li class="liLeftSub">
+                    <a href="#" id="5" class="tab subNavTop subKeyword">Approvals</a>
+                </li>
+                <li class="liLeftSub">
+                    <a href="#" id="4" class="tab subNavTop subMetric">Rejections</a>
+                </li>
+                <li class="liLeftSub">
+                    <a href="#" id="3" class="tab subNavTop subLocType">Demographics</a>
+                    <ul class="dropMenu" id="dropLocType">
+                        <li class="liDropMenu"><label for="keyword1">Suuni</label><input type="checkbox" name="keyword" value="keyword1" checked="checked" /></li>
+                        <li class="liDropMenu"><label for="keyword2">Shiite</label><input type="checkbox" name="keyword" value="keyword2" checked="checked" /></li>
+                    </ul>
+                </li>
+                <li class="liLeftSub">
+                    <a href="#" id="2" class="tab subNavTop subLocType">Phases</a>
+                </li>
+            </ul>
+            <ul class="rightSub txtBold" id="rightSub">
+                <li class="liRightSub">
+                    <a href="#" class="subNavTop subTweets openTweetsHdr">Features<span class="tweetCarat"></span></a>
+                    <ul class="dropMenu tweetList openTweets" id="dropTweets">
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header> <!-- eo #hdrSite -->
+    <div class="mapBG">
+      <div class="geocommons_map" id="dashboard_map"></div><br/>
+    </div> <!-- eo #mapGB -->
+    <footer id="ftrSite" class="ftrSite">
+    	
+    </footer> <!-- eo #ftrSite -->
 </body>
 </html>
