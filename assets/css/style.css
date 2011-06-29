@@ -245,7 +245,7 @@ strong, h1, h2, h3, h4, h5, h6, .txtBold{font-family:'CartoGothicStdBold', 'Myri
 }
 .openTweets{
 	display: block;	
-	height: 680px;
+	height: 676px;
 	overflow-y: auto;
 }
 .tweetList{
