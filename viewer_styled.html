@@ -1,95 +1,95 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-		<title>Population and House Apportionments by State Viewer</title>
-		
-			<script type="text/javascript" charset="utf-8" src="http://geocommons.com/javascripts/f1.api.js"></script>
-		<link type="text/css" href="css/eggplant/jquery-ui-1.7.3.custom.css" rel="stylesheet" />	
-		<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-		<script type="text/javascript" src="js/jquery-ui-1.7.3.custom.min.js"></script>
-		<script type="text/javascript">
-			geocommons_map = new F1.Maker.Map({map_id: "42641", dom_id: "geocommons_map_81621"});
-			choropleth_styles = [
-				{"icon": {"opacity": 0.75, "size": 1, "symbol": "propCircle", "dropShadow": true, "gradSize": null, "propSize": null, "lineStyle": "normal", "color": 14343142}, "type": "CHOROPLETH", "stroke": {"alpha": 1, "weight": 1, "color": 14343142}, "fill": {"opacity": 0.75, "classificationType": "St Dev", "selectedAttribute": "1910_change", "categories": 5, "range": [-0.3, 120.5207], "color": 14343142, "classificationBreaks": [-0.3, 22.0138, 41.2739, 73.2816, 97.9957, 120.6416], "colors": [14343142, 11580379, 7505585, 4481915, 2966850], "classificationNumClasses": 6}},
-				{"icon": {"opacity": 0.75, "size": 1, "symbol": "propCircle", "propSize": null, "dropShadow": true, "gradSize": null, "lineStyle": "normal", "color": 15725567}, "type": "CHOROPLETH", "stroke": {"alpha": 1, "weight": 1, "color": 15725567}, "fill": {"opacity": 0.75, "classificationType": "St Dev", "selectedAttribute": "1910_change", "categories": 5, "range": [-0.3, 120.5207], "color": 15725567, "classificationBreaks": [-0.3, 16.5787, 44.9301, 73.2816, 101.633, 120.6416], "colors": [15725567, 12441575, 7057110, 3244733, 545180], "classificationNumClasses": 6}},
-				{"icon": {"opacity": 0.75, "size": 1, "symbol": "propCircle", "propSize": null, "dropShadow": true, "gradSize": null, "lineStyle": "normal", "color": 16704985}, "type": "CHOROPLETH", "stroke": {"alpha": 1, "weight": 1, "color": 16704985}, "fill": {"opacity": 0.75, "classificationType": "St Dev", "selectedAttribute": "1910_reps", "categories": 5, "range": [0, 43.043], "color": 16704985, "classificationBreaks": [0, 5, 14, 22, 31, 43.0861], "colors": [16704985, 16559761, 16476746, 14560550, 10817301], "classificationNumClasses": 6}}
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <title>Population and House Apportionments by State Viewer</title>
 
-		];	
-			
-			$(function(){
-	
-				// Tabs
-				$('#tabs').tabs({
-					select: function(event,ui){
-							geocommons_map.removeLayer(0);
-							geocommons_map.addLayer({
-								source: "finder:" + ui.panel.id,
-								styles: choropleth_styles[ui.index]
-							});			   
-					}
-					
-				});
-				
-				// Slider
-				$('#slider').slider({
-					range: true,
-					values: [17, 67]
-				});
-				
-				//hover states on the static widgets
-				$('#dialog_link, ul#icons li').hover(
-					function() { $(this).addClass('ui-state-hover'); }, 
-					function() { $(this).removeClass('ui-state-hover'); }
-				);
-				
-			});
-		</script>
-		<style type="text/css">
-			body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
-			.demoHeaders { margin-top: 2em; }
-			#dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
-			#dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
-			ul#icons {margin: 0; padding: 0;}
-			ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
-			ul#icons span.ui-icon {float: left; margin: 0 4px;}
-			#geocommons_map_81621 {width: 100%; height: 450px;}
-		</style>	
-	</head>
-	<body>
-		<h2>Population and House Apportionments by State Viewer</h2>
-		<div id="tabs">
-			<ul>
-				<li><a href="#81621">Population Change</a></li>
-				<li><a href="#81620">Population Density</a></li>
-				<li><a href="#81619">House Apportionments</a></li>
-			</ul>
-			<div id="tabs-81621"><div class="geocommons_map" id="geocommons_map_81621"></div></div>
-			<div id="81620"><div class="geocommons_map" id="geocommons_map_81620"></div></div>
-			<div id="81619"><div class="geocommons_map" id="geocommons_map_81619"></div></div>
-		</div>
-		
-	<form style="margin-top: 1em;">
-				<div id="radioset">
-					<input type="radio" id="1910" name="radio" checked="checked" /><label for="1910">1910</label>
-					<input type="radio" id="1920" name="radio"  /><label for="1920">1920</label>
-					<input type="radio" id="1930" name="radio" /><label for="1930">1930</label>
-					<input type="radio" id="1940" name="radio"  /><label for="1940">1940</label>
-					<input type="radio" id="1950" name="radio" /><label for="1950">1950</label>
-					<input type="radio" id="1960" name="radio"  /><label for="1960">1960</label>
-					<input type="radio" id="1970" name="radio" /><label for="1970">1970</label>
-					<input type="radio" id="1980" name="radio"  /><label for="1980">1980</label>
-					<input type="radio" id="1990" name="radio" /><label for="1990">1990</label>
-					<input type="radio" id="2000" name="radio"  /><label for="2000">2000</label>
-					<input type="radio" id="2010" name="radio" /><label for="2010">2010</label>
-				</div>
-			</form>
-				
-				
-		
-	
-	
-	</body>
+  <script type="text/javascript" charset="utf-8" src="http://geocommons.com/javascripts/f1.api.js"></script>
+  <link type="text/css" href="css/eggplant/jquery-ui-1.7.3.custom.css" rel="stylesheet" />	
+  <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.7.3.custom.min.js"></script>
+
+  <style type="text/css">
+  body{ font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+  .demoHeaders { margin-top: 2em; }
+  #dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}
+  #dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}
+  ul#icons {margin: 0; padding: 0;}
+  ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}
+  ul#icons span.ui-icon {float: left; margin: 0 4px;}
+  #geocommons_map_81621 {width: 100%; height: 450px;}
+  </style>	
+</head>
+<body>
+  <h2>Population and House Apportionments by State Viewer</h2>
+  <div id="tabs">
+    <ul>
+      <li><a href="#81621">Population Change</a></li>
+      <li><a href="#81620">Population Density</a></li>
+      <li><a href="#81619">House Apportionments</a></li>
+    </ul>
+    <div id="tabs-81621"><div class="geocommons_map" id="geocommons_map_81621"></div></div>
+    <div id="81620"><div class="geocommons_map" id="geocommons_map_81620"></div></div>
+    <div id="81619"><div class="geocommons_map" id="geocommons_map_81619"></div></div>
+  </div>
+
+  <form style="margin-top: 1em;">
+    <div id="radioset">
+      <input type="radio" id="1910" name="radio" checked="checked" /><label for="1910">1910</label>
+      <input type="radio" id="1920" name="radio"  /><label for="1920">1920</label>
+      <input type="radio" id="1930" name="radio" /><label for="1930">1930</label>
+      <input type="radio" id="1940" name="radio"  /><label for="1940">1940</label>
+      <input type="radio" id="1950" name="radio" /><label for="1950">1950</label>
+      <input type="radio" id="1960" name="radio"  /><label for="1960">1960</label>
+      <input type="radio" id="1970" name="radio" /><label for="1970">1970</label>
+      <input type="radio" id="1980" name="radio"  /><label for="1980">1980</label>
+      <input type="radio" id="1990" name="radio" /><label for="1990">1990</label>
+      <input type="radio" id="2000" name="radio"  /><label for="2000">2000</label>
+      <input type="radio" id="2010" name="radio" /><label for="2010">2010</label>
+    </div>
+  </form>
+
+
+
+  <script type="text/javascript">
+  geocommons_map = new F1.Maker.Map({map_id: "42641", dom_id: "geocommons_map_81621"});
+  choropleth_styles = [
+  {"icon": {"opacity": 0.75, "size": 1, "symbol": "propCircle", "dropShadow": true, "gradSize": null, "propSize": null, "lineStyle": "normal", "color": 14343142}, "type": "CHOROPLETH", "stroke": {"alpha": 1, "weight": 1, "color": 14343142}, "fill": {"opacity": 0.75, "classificationType": "St Dev", "selectedAttribute": "1910_change", "categories": 5, "range": [-0.3, 120.5207], "color": 14343142, "classificationBreaks": [-0.3, 22.0138, 41.2739, 73.2816, 97.9957, 120.6416], "colors": [14343142, 11580379, 7505585, 4481915, 2966850], "classificationNumClasses": 6}},
+  {"icon": {"opacity": 0.75, "size": 1, "symbol": "propCircle", "propSize": null, "dropShadow": true, "gradSize": null, "lineStyle": "normal", "color": 15725567}, "type": "CHOROPLETH", "stroke": {"alpha": 1, "weight": 1, "color": 15725567}, "fill": {"opacity": 0.75, "classificationType": "St Dev", "selectedAttribute": "1910_change", "categories": 5, "range": [-0.3, 120.5207], "color": 15725567, "classificationBreaks": [-0.3, 16.5787, 44.9301, 73.2816, 101.633, 120.6416], "colors": [15725567, 12441575, 7057110, 3244733, 545180], "classificationNumClasses": 6}},
+  {"icon": {"opacity": 0.75, "size": 1, "symbol": "propCircle", "propSize": null, "dropShadow": true, "gradSize": null, "lineStyle": "normal", "color": 16704985}, "type": "CHOROPLETH", "stroke": {"alpha": 1, "weight": 1, "color": 16704985}, "fill": {"opacity": 0.75, "classificationType": "St Dev", "selectedAttribute": "1910_reps", "categories": 5, "range": [0, 43.043], "color": 16704985, "classificationBreaks": [0, 5, 14, 22, 31, 43.0861], "colors": [16704985, 16559761, 16476746, 14560550, 10817301], "classificationNumClasses": 6}}
+
+  ];	
+
+  $(function(){
+
+    // Tabs
+    $('#tabs').tabs({
+      select: function(event,ui){
+        geocommons_map.removeLayer(0);
+        geocommons_map.addLayer({
+          source: "finder:" + ui.panel.id,
+          styles: choropleth_styles[ui.index]
+        });			   
+      }
+
+    });
+
+    // Slider
+    $('#slider').slider({
+      range: true,
+      values: [17, 67]
+    });
+
+    //hover states on the static widgets
+    $('#dialog_link, ul#icons li').hover(
+      function() { $(this).addClass('ui-state-hover'); }, 
+      function() { $(this).removeClass('ui-state-hover'); }
+    );
+
+  });
+  </script>
+
+</body>
 </html>
 
 

@@ -1,0 +1,79 @@
+<html>
+<title>Dashboard</title>
+<style>#dashboard_map {width: 100%; height: 700px;}</style>
+  <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://geoiq.akgroup/javascripts/f1.api.js"></script>
+<script type="text/javascript">
+dashboard_map = new F1.Maker.Map({map_id: "49", dom_id: "dashboard_map", uiLayers: false});
+function highlightFeature(layer, feature) {
+  dashboard_map.clearHighlights(layer);
+  dashboard_map.addHighlight(layer, "$["+sidebar_styles[layer].name+"] == '" + feature + "'")
+  return false;
+}  
+$(function(){
+  var current_layer = 5;
+  sidebar_styles = [{},{},{name: "sstatus"},{name: "sctrycode"}, {name: "sname"}, {name: "sname"}]
+
+  // Tabs
+  $('.tab').click(function(){
+      dashboard_map.showControl("Legend",true,"closed")
+      jq("#" + current_layer).removeClass("selected")
+      $("#" + current_layer + "_data").hide()
+      dashboard_map.showLayer(current_layer, false);
+      current_layer = jq(this).attr("id");
+      jq(this).addClass("selected")
+      dashboard_map.showLayer(current_layer, true);
+      $("#" + current_layer + "_data").show()
+      dashboard_map.showControl("Legend",true,"open")
+      html = "<ul>"
+      $.each(dashboard_map.getFeatures(current_layer), function(i,feature) {
+        html += "<li><a href='#' onclick='highlightFeature("+current_layer+",\""+feature.attributes[sidebar_styles[current_layer].name]+"\"); return false'>" + feature.attributes[sidebar_styles[current_layer].name] + "</a></li>"
+      })
+      html += "</ul>"
+      $("#sidebar").html(html)
+      return false;
+    })
+    
+});
+</script>
+<style type="text/css">
+/*demo page css*/
+#tabs ul {list-style: none outside none; padding-bottom: 20px;}
+#tabs ul li {float: left; margin-left: 8px ; }
+a { text-decoration: none; }
+#tabs ul li a {border-left: 1px solid #444;border-top: 1px solid #444;border-right: 1px solid #444; padding: 3px; background-color: #BBB; }
+#tabs ul li a:hover { background-color: #FFF; }
+#tabs ul li a.selected { background-color: #FFF; }
+#tabs h3 { margin-bottom: 8px ;}
+#sidebar li {border: 1px solid #444;}
+#sidebar li, #sidebar a { padding: 8px 0;  }
+#sidebar a:hover { color: red; }
+</style>
+<body>
+  <h1>Data Views</h1>
+  <div id="tabs">
+    <ul>
+      <li><a class="tab selected" href="#5" id="5">Approvals</a></li>
+      <li><a class="tab" href="#4" id="4">Rejections</a></li>
+      <li><a class="tab" href="#3" id="3">Demographics</a></li>
+      <li><a class="tab" href="#2" id="2">Phases</a></li>
+    </ul>
+  </div>
+    <div style="float:left; width: 80%">
+      <div class="geocommons_map" id="dashboard_map"></div><br/>
+    </div>
+    
+    <div style="float: left; width: 18%; margin-left:12px">
+      <div id="5_data" style="display:none"><h2>Approvals</h2></div>
+      <div id="4_data" style="display:none"><h2>Rejections</h2></div>
+      <div id="3_data" style="display:none"><h2>Demographics</h2>
+        <p>Sunni, Shiite</p>
+      </div>
+      <div id="2_data" style="display:none"><h2>Phases</h2></div>
+      <div id="sidebar"></div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
